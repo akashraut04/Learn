@@ -19,14 +19,14 @@ public class Company {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="company_Id")
-    private int companyId;
+    @Column(name="company_id")
+    private Integer companyId;
     @Column(name="designation")
     private String designation;
-    @Column(name="company_Name")
+    @Column(name="company_name")
     private String companyName;
 
-    @OneToMany(mappedBy = "company", cascade = {CascadeType.ALL})
+   @OneToMany(mappedBy = "company", cascade = {CascadeType.ALL})
     @JsonManagedReference
     List<Employee> employees;
 }

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.context.annotation.Bean;
 
 @Getter
 @Setter
@@ -16,4 +17,7 @@ public class EmployeeBean {
     private int companyId;
     private String operation;
 
+
+    public EmployeeBean(int employeeId) {
+    }
 }

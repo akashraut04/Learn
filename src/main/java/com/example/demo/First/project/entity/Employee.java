@@ -8,6 +8,8 @@ import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Getter
@@ -19,13 +21,15 @@ public class Employee {
 
 @Id
 @GeneratedValue(strategy = GenerationType.AUTO)
-@Column(name="employee_Id")
-private int employeeId;
-@Column(name="employee_Name")
+@Column(name="employee_id")
+private Integer employeeId;
+@Column(name="employee_name")
+
 private String employeeName;
-@Column(name="company_Id")
-private int companyId;
-    @ManyToOne(cascade = CascadeType.ALL)
+
+@Column(name="company_id")
+private Integer companyId;
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="company_id", nullable=false,insertable = false ,updatable = false)
     @JsonBackReference
     Company company;

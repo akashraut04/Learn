@@ -2,6 +2,7 @@ package com.example.demo.First.project.processor;
 
 import com.example.demo.First.project.Services.EmployeeService;
 import com.example.demo.First.project.bean.EmployeeBean;
+import com.example.demo.First.project.exception.ResourceNotFoundException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
@@ -22,16 +23,24 @@ public class EmpProcessor implements Processor {
         String strValue = (String) exchange.getIn().getBody();
         ObjectMapper objectMapper = new ObjectMapper();
 
-        if (strValue.startsWith("{") || strValue.startsWith("[")) {
+      try {
+          if (strValue.startsWith("{") || strValue.startsWith("[")) {
 
-            EmployeeBean employeeBean = objectMapper.readValue(strValue, EmployeeBean.class);
-            if (employeeBean.getOperation().equalsIgnoreCase("create")) {
+              EmployeeBean employeeBean = objectMapper.readValue(strValue, EmployeeBean.class);
+              if (employeeBean.getOperation().equalsIgnoreCase("create")) {
 
-                employeeService.addData(employeeBean);
-            } else if (employeeBean.getOperation().equalsIgnoreCase("update")) {
+                  employeeService.addData(employeeBean);
+              } else if (employeeBean.getOperation().equalsIgnoreCase("update")) {
 
-                employeeService.addData(employeeBean);
-            }
-        }
+                  employeeService.addData(employeeBean);
+              } else if (employeeBean.getOperation().equalsIgnoreCase("delete")) {
+                  employeeService.deleteEmployee(employeeBean);
+              }
+          }
+      }catch (Exception e){
+
+
+
+      }
     }
 }
